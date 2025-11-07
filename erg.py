@@ -17,9 +17,9 @@ class ReportGenerator:
     def needs_sort(self):
         return True if self.sort_by else False
 
-    #TODO: complete sort_report(), style_report()
+    #TODO: style_report()
     def sort_report(self):
-        pass
+        self.dataframe = self.dataframe.sort_values(by=self.sort_by)
 
     def style_report(self):
         pass
