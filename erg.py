@@ -40,6 +40,7 @@ class ReportGenerator:
         self.dataframe = self.dataframe.sort_values(by=self.sort_by)
 
     #TODO: style_report() + docstring
+    #TODO: After creating style_report() and associated templates, add documentation (incl. screenshots) to readme.
     def style_report(self):
         pass
 
