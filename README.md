@@ -67,13 +67,31 @@ socket.send_string(request_json)
 
 ### Response Instructions
 
-[//]: # (TODO: Complete)
+1. Import the zmq and json packages. 
+2. Open a new request socket connected to localhost port number 5727.
+3. Make the request (follow instructions above). 
+4. Create a response variable (i.e. message) and set the socket to receive. 
+5. Decode the received response to the utf-8 format. 
+
+After following the steps above, you will have a string containing the absolute file path of the generated Excel report.
+This can be utilized however best fits the client program (i.e. displaying the path to the end user, or serving it as a
+download in your web app).
 
 ### Example Call (Response)
 ```python
+import zmq
+import json
 
+# Setup communication (client)
+context = zmq.Context()
+socket = context.socket(zmq.REQ)
+socket.connect("tcp://localhost:5727")
+
+# Make Request (see above)
+
+# Receive filepath and decode back to a string
+message = socket.recv().decode('utf-8')
 ```
-[//]: # (TODO: Complete)
 
 ## UML Sequence Diagram
 
