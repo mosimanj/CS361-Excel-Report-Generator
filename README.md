@@ -80,7 +80,6 @@ download in your web app).
 ### Example Call (Response)
 ```python
 import zmq
-import json
 
 # Setup communication (client)
 context = zmq.Context()
@@ -94,8 +93,7 @@ message = socket.recv().decode('utf-8')
 ```
 
 ## UML Sequence Diagram
-
-[//]: # (TODO: Complete)
+<img src="erg-diagram.png" alt="erg sequence diagram">
 
 ## Style Templates
 Below is an overview of the name of each template, along with a preview of their appearance.
