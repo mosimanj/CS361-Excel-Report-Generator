@@ -8,7 +8,7 @@ report_data = {
         ["Charlie", 35, "HR"]
     ],
     "sort_by": "Age",      
-    "style": "default"     
+    "style": "green"     
 }
 
 report = ReportGenerator(report_data)

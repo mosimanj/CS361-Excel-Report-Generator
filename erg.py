@@ -10,12 +10,78 @@ STYLE_TEMPLATES = {
         "header_fill": PatternFill(start_color="1F4E78", fill_type="solid"),
         "header_font": Font(color="FFFFFF", bold=True),
         "header_alignment": Alignment(horizontal="center", vertical="center"),
+        "row_fill": PatternFill(start_color="FFFFFF", fill_type="solid"),
         "row_font": Font(color="000000"),
         "alignment": Alignment(horizontal="center", vertical="center"),
         "border": Border(
             left=Side(style="thin"), right=Side(style="thin"),
             top=Side(style="thin"), bottom=Side(style="thin")
         )
+    },
+
+    "light": {
+        "header_fill": PatternFill(start_color="BDD7E7", fill_type="solid"),
+        "header_font": Font(color="08519C", bold=True),
+        "header_alignment": Alignment(horizontal="center", vertical="center"),
+        "row_fill": PatternFill(start_color="EFF3FF", fill_type="solid"),
+        "row_font": Font(color="3183BD"),
+        "alignment": Alignment(horizontal="left", vertical="center"),
+        "border": Border(
+            left=Side(style="thin"), right=Side(style="thin"),
+            top=Side(style="thin"), bottom=Side(style="thin")
+        ),
+    },
+
+    "dark": {
+        "header_fill": PatternFill(start_color="636363", fill_type="solid"),
+        "header_font": Font(color="BDD7E7", bold=True),
+        "header_alignment": Alignment(horizontal="center", vertical="center"),
+        "row_fill": PatternFill(start_color="969696", fill_type="solid"),
+        "row_font": Font(color="F7F7F7"),
+        "alignment": Alignment(horizontal="center", vertical="center"),
+        "border": Border(
+            left=Side(style="medium"), right=Side(style="medium"),
+            top=Side(style="medium"), bottom=Side(style="medium")
+        ),
+    },
+
+    "blue": {
+        "header_fill": PatternFill(start_color="08519C", fill_type="solid"),
+        "header_font": Font(color="BDD7E7", bold=True),
+        "header_alignment": Alignment(horizontal="center", vertical="center"),
+        "row_fill": PatternFill(start_color="6BAED6", fill_type="solid"),
+        "row_font": Font(color="F7F7F7"),
+        "alignment": Alignment(horizontal="center", vertical="center"),
+        "border": Border(
+            left=Side(style="medium", color="3182BD"), right=Side(style="medium", color="3182BD"),
+            top=Side(style="medium", color="3182BD"), bottom=Side(style="medium", color="3182BD"),
+        ),
+    },
+
+    "green": {
+        "header_fill": PatternFill(start_color="31A354", fill_type="solid"),
+        "header_font": Font(color="FFFFCC", bold=True),
+        "header_alignment": Alignment(horizontal="center", vertical="center"),
+        "row_fill": PatternFill(start_color="C2E699", fill_type="solid"),
+        "row_font": Font(color="006837"),
+        "alignment": Alignment(horizontal="center", vertical="center"),
+        "border": Border(
+            left=Side(style="medium", color="006873"), right=Side(style="medium", color="006873"),
+            top=Side(style="medium", color="006873"), bottom=Side(style="medium", color="006873"),
+        ),
+    },
+
+    "high_contrast": {
+        "header_fill": PatternFill(start_color="000000", fill_type="solid"),
+        "header_font": Font(color="FFFFFF", bold=True),
+        "header_alignment": Alignment(horizontal="center", vertical="center"),
+        "row_fill": PatternFill(start_color="FFFFFF", fill_type="solid"),
+        "row_font": Font(color="000000"),
+        "alignment": Alignment(horizontal="left", vertical="center"),  
+        "border": Border(
+            left=Side(style="thin"), right=Side(style="thin"),
+            top=Side(style="thin"), bottom=Side(style="thin")
+        ),
     }
 }
 
@@ -76,6 +142,7 @@ class ReportGenerator:
         # Body rows
         for row in ws.iter_rows(min_row=2):
             for cell in row:
+                cell.fill = template["row_fill"]
                 cell.font = template["row_font"]
                 cell.alignment = template["header_alignment"]
                 cell.border = template["border"]
@@ -97,23 +164,23 @@ class ReportGenerator:
     #     cur_directory = os.path.abspath(__file__)
     #     return f'{cur_directory}\\{file_name}'
     
-def generate_excel(self):
-        """
-        Generates an Excel file from the DataFrame, stores it in the reports directory, and returns the created files
-        absolute filepath. File name is in [today's date]-report-randint format.
-        :return:    String containing the file path of the created Excel file.
-        """
-        # Ensure 'reports' directory exists
-        if not os.path.exists("reports"):
-            os.mkdir("reports")
+    def generate_excel(self):
+            """
+            Generates an Excel file from the DataFrame, stores it in the reports directory, and returns the created files
+            absolute filepath. File name is in [today's date]-report-randint format.
+            :return:    String containing the file path of the created Excel file.
+            """
+            # Ensure 'reports' directory exists
+            if not os.path.exists("reports"):
+                os.mkdir("reports")
 
-        file_name = f"reports/{date.today()}-report-{randint(300,9000)}.xlsx"
+            file_name = f"reports/{date.today()}-report-{randint(300,9000)}.xlsx"
 
-        # Save DataFrame to excel file
-        self.dataframe.to_excel(file_name, index=False)
+            # Save DataFrame to excel file
+            self.dataframe.to_excel(file_name, index=False)
 
-        # Apply style
-        if self.needs_style():
-            file_name = self.style_report(file_name)
+            # Apply style
+            if self.needs_style():
+                file_name = self.style_report(file_name)
 
-        return os.path.abspath(file_name)
+            return os.path.abspath(file_name)
