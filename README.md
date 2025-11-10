@@ -116,20 +116,12 @@ request = {
 ```
 
 ### Style Previews
-default
-<img src="./styles/default.png" alt="Default Excel Styling">
 
-light
-<img src="./styles/light.png" alt="Light Excel Styling">
-
-dark
-<img src="./styles/dark.png" alt="Dark Excel Styling">
-
-blue
-<img src="./styles/blue.png" alt="Blue Excel Styling">
-
-green
-<img src="./styles/green.png" alt="Green Excel Styling">
-
-high_contrast
-<img src="./styles/high_contrast.png" alt="High Contrast Excel Styling">
+| Template Name     | Preview |
+|------------------|--------|
+| **default**       | <img src="./styles/default.png" alt="Default Excel Styling" width="200"> |
+| **light**         | <img src="./styles/light.png" alt="Light Excel Styling" width="200"> |
+| **dark**          | <img src="./styles/dark.png" alt="Dark Excel Styling" width="200"> |
+| **blue**          | <img src="./styles/blue.png" alt="Blue Excel Styling" width="200"> |
+| **green**         | <img src="./styles/green.png" alt="Green Excel Styling" width="200"> |
+| **high_contrast** | <img src="./styles/high_contrast.png" alt="High Contrast Excel Styling" width="200"> |
