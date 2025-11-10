@@ -1,6 +1,7 @@
 import pandas
-import openpyxl # needed for generating Excel
+import openpyxl
 from openpyxl.styles import Font, PatternFill, Border, Side, Alignment
+from openpyxl.utils import get_column_letter
 from random import randint
 from datetime import date
 import os
@@ -73,17 +74,42 @@ STYLE_TEMPLATES = {
 
     "high_contrast": {
         "header_fill": PatternFill(start_color="000000", fill_type="solid"),
-        "header_font": Font(color="FFFFFF", bold=True),
+        "header_font": Font(color="FFFF00", bold=True),
         "header_alignment": Alignment(horizontal="center", vertical="center"),
         "row_fill": PatternFill(start_color="FFFFFF", fill_type="solid"),
         "row_font": Font(color="000000"),
         "alignment": Alignment(horizontal="left", vertical="center"),  
         "border": Border(
-            left=Side(style="thin"), right=Side(style="thin"),
-            top=Side(style="thin"), bottom=Side(style="thin")
+            left=Side(style="thick", color="000000"),
+            right=Side(style="thick", color="000000"),
+            top=Side(style="thick", color="000000"),
+            bottom=Side(style="thick", color="000000")
         ),
     }
 }
+
+def fit_columns(ws):
+    """
+    Helper function for style_excel() to set column widths automatically based on cell contents.
+    :return: None
+    """
+    for col in ws.columns:
+        max_length = 0
+        column_letter = get_column_letter(col[0].column)
+
+        # Determine length of cell contents
+        for cell in col:
+            try:
+                value = str(cell.value)
+                if len(value) > max_length:
+                    max_length = len(value)
+            except:
+                pass
+
+        # Add some padding
+        adjusted_width = max_length + 2
+        ws.column_dimensions[column_letter].width = adjusted_width
+
 
 class ReportGenerator:
     """
@@ -120,7 +146,6 @@ class ReportGenerator:
         """
         self.dataframe = self.dataframe.sort_values(by=self.sort_by)
 
-    #TODO: After creating style_report() and associated templates, add documentation (incl. screenshots) to readme.
     def style_report(self, file_path):
         """
         Applies predefined style template to the generated report.  Loads excel file from argument file path, applies 
@@ -147,6 +172,8 @@ class ReportGenerator:
                 cell.alignment = template["header_alignment"]
                 cell.border = template["border"]
         
+        fit_columns(ws)
+
         wb.save(file_path)
         return file_path
 
