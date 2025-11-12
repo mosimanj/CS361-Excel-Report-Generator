@@ -96,6 +96,32 @@ message = socket.recv().decode('utf-8')
 <img src="erg-diagram.png" alt="erg sequence diagram">
 
 ## Style Templates
-Below is an overview of the name of each template, along with a preview of their appearance.
 
-[//]: # (TODO: Add screenshots of available templates)
+The ERG supports optional predefined Excel styling templates.  
+If you wish to apply styling, include a `style` key in your request and set its value to one of the template names defined below.  
+If omitted, the generated report will use default Excel formatting.
+
+### Example call
+```python
+request = {
+    "Headers": ["Name", "Age", "Department"],
+    "Rows": [
+        ["Alice", 30, "Engineering"],
+        ["Bob", 25, "Marketing"],
+        ["Charlie", 35, "HR"]
+    ],
+    "sort_by": "Age",
+    "style": "green"
+}
+```
+
+### Style Previews
+
+| Template Name     | Preview |
+|------------------|--------|
+| **default**       | <img src="./styles/default.png" alt="Default Excel Styling" width="200"> |
+| **light**         | <img src="./styles/light.png" alt="Light Excel Styling" width="200"> |
+| **dark**          | <img src="./styles/dark.png" alt="Dark Excel Styling" width="200"> |
+| **blue**          | <img src="./styles/blue.png" alt="Blue Excel Styling" width="200"> |
+| **green**         | <img src="./styles/green.png" alt="Green Excel Styling" width="200"> |
+| **high_contrast** | <img src="./styles/high_contrast.png" alt="High Contrast Excel Styling" width="200"> |
