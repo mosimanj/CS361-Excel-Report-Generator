@@ -189,10 +189,12 @@ class ReportGenerator:
 
             file_name = f"reports/{date.today()}-report-{randint(300,9000)}.xlsx"
 
-            # Save DataFrame to excel file
+            # Save DataFrame to Excel file
             self.dataframe.to_excel(file_name, index=False)
 
-            # Apply style
+            # Apply style & sort
+            if self.needs_sort():
+                self.sort_report()
             if self.needs_style():
                 file_name = self.style_report(file_name)
 

@@ -11,17 +11,12 @@ while True:
     # Receive message
     message = socket.recv_string()
     request = json.loads(message)
+    print(f'Microservice received message: {request}')
 
-    # Create report generator & perform operations
+    # Create report generator, perform operations, & generate report
     generator = ReportGenerator(request)
-
-    if generator.needs_sort():
-        generator.sort_report()
-
-    if generator.needs_style():
-        generator.style_report()
-
     file_path = generator.generate_excel()
 
     # Send filepath of generated Excel file to client
     socket.send_string(file_path)
+    print(f'Microservice sent response: {file_path}')

@@ -15,13 +15,14 @@ request = {
         [10, '2024/12/15', 'Jane Doe', 25]
     ],
     'sort_by': 'ID',
-    'style': 'Blue'
+    'style': 'blue'
 }
 
 # Convert request to JSON & send
 request_json = json.dumps(request)
+print(f'Client sending request: {request_json}')
 socket.send_string(request_json)
 
 # Receive filepath and decode back to a string
 message = socket.recv().decode('utf-8')
-print(message)
+print(f'Client received message: {message}')
