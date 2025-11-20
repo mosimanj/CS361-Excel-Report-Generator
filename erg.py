@@ -176,25 +176,32 @@ class ReportGenerator:
 
         wb.save(file_path)
         return file_path
-    
+
+    def generate_file_name(self):
+        """
+        Helper function than creates semi-random file name in [today's date]-report-randint format. Also generates
+        directory 'reports' if it does not already exist.
+        :return:    String containing the generated file name.
+        """
+        if not os.path.exists("reports"):
+            os.mkdir("reports")
+
+        file_name = f"reports/{date.today()}-report-{randint(300, 9000)}.xlsx"
+        return file_name
+
     def generate_excel(self):
             """
             Generates an Excel file from the DataFrame, stores it in the reports directory, and returns the created files
-            absolute filepath. File name is in [today's date]-report-randint format.
+            absolute filepath.
             :return:    String containing the file path of the created Excel file.
             """
-            # Ensure 'reports' directory exists
-            if not os.path.exists("reports"):
-                os.mkdir("reports")
+            file_name = self.generate_file_name()
 
-            file_name = f"reports/{date.today()}-report-{randint(300,9000)}.xlsx"
-
-            # Save DataFrame to Excel file
-            self.dataframe.to_excel(file_name, index=False)
-
-            # Apply style & sort
             if self.needs_sort():
                 self.sort_report()
+
+            self.dataframe.to_excel(file_name, index=False)
+
             if self.needs_style():
                 file_name = self.style_report(file_name)
 
