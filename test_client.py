@@ -6,8 +6,7 @@ context = zmq.Context()
 socket = context.socket(zmq.REQ)
 socket.connect("tcp://localhost:5727")
 
-# Example report request
-request = {
+example_request = {
     'Headers': ['ID', 'Date', 'Name', 'Sale Amount'],
     'Rows': [
         [7, '2024/10/05', 'John Doe', 35.24],
@@ -19,7 +18,7 @@ request = {
 }
 
 # Convert request to JSON & send
-request_json = json.dumps(request)
+request_json = json.dumps(example_request)
 print(f'Client sending request: {request_json}')
 socket.send_string(request_json)
 

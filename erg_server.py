@@ -13,7 +13,6 @@ while True:
     request = json.loads(message)
     print(f'Microservice received message: {request}')
 
-    # Create report generator, perform operations, & generate report
     generator = ReportGenerator(request)
     file_path = generator.generate_excel()
 

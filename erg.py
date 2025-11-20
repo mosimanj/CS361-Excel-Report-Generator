@@ -120,7 +120,7 @@ class ReportGenerator:
     for what header the report should be sorted by (if any) and what style template should be applied (if any).
     """
     def __init__(self, report_data):
-        self.dataframe = pandas.DataFrame(report_data['Rows'], columns=report_data['Headers']) #Convert to DataFrame
+        self.dataframe = pandas.DataFrame(report_data['Rows'], columns=report_data['Headers'])
         self.sort_by = False if 'sort_by' not in report_data else report_data['sort_by']
         self.style = False if 'style' not in report_data else report_data['style']
 
