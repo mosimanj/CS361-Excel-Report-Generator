@@ -123,12 +123,12 @@ class ReportGenerator:
         """
         self.dataframe = self.dataframe.sort_values(by=self.sort_by)
 
-    def fit_columns(self, ws):
+    def fit_columns(self, worksheet):
         """
         Helper function for style_excel() to set column widths automatically based on cell contents.
         :return: None
         """
-        for col in ws.columns:
+        for col in worksheet.columns:
             max_length = 0
             column_letter = get_column_letter(col[0].column)
 
@@ -143,7 +143,7 @@ class ReportGenerator:
 
             # Add some padding
             adjusted_width = max_length + 2
-            ws.column_dimensions[column_letter].width = adjusted_width
+            worksheet.column_dimensions[column_letter].width = adjusted_width
 
     def style_report(self, file_path):
         """
@@ -151,29 +151,29 @@ class ReportGenerator:
         template styling to header and body rows, and saves Excel file with updates.
         :returns: original Excel file path
         """
-        wb = openpyxl.load_workbook(file_path)
-        ws = wb['Sheet1']
+        workbook = openpyxl.load_workbook(file_path)
+        worksheet = workbook['Sheet1']
 
         template = STYLE_TEMPLATES[self.style]
 
         # Header row
-        for cell in ws[1]:
+        for cell in worksheet[1]:
             cell.fill = template['header_fill']
             cell.font = template['header_font']
             cell.alignment = template['header_alignment']
             cell.border = template['border']
         
         # Body rows
-        for row in ws.iter_rows(min_row=2):
+        for row in worksheet.iter_rows(min_row=2):
             for cell in row:
                 cell.fill = template['row_fill']
                 cell.font = template['row_font']
                 cell.alignment = template['header_alignment']
                 cell.border = template['border']
         
-        self.fit_columns(ws)
+        self.fit_columns(worksheet)
 
-        wb.save(file_path)
+        workbook.save(file_path)
         return file_path
 
     def generate_file_name(self):
